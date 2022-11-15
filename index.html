@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="js/index.js"></script>
 
 </head>
 
@@ -221,7 +222,7 @@
                                     </div>
 
                                     <div class="mt-4 text-center">
-                                        <button class="btn btn-primary btn-icon-split">
+                                        <button class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#changePasswordModal">
                                             <span class="text">Đổi mật khẩu</span>
                                         </button>
                                     </div>                                   
@@ -262,15 +263,50 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Đăng xuất?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Bạn có muốn đăng xuất?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                    <input type="button" value="Đăng xuất" class="btn btn-primary" onclick="logout()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user">
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-user"
+                                id="inputOldPassword" placeholder="Mật khẩu cũ">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-user"
+                                id="inputNewPassword" placeholder="Mật khẩu mới">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-user"
+                                id="inputReNewPassword" placeholder="Nhập lại mật khẩu mới">
+                        </div>
+                        <p id="error" class="small" style="color: rgb(222, 24, 24);"></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                    <input type="button" value="Đổi mật khẩu" class="btn btn-primary" onclick="changePass()"/>
                 </div>
             </div>
         </div>

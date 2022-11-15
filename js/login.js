@@ -24,6 +24,7 @@ const login = async () => {
         if(arrayRole[0] == "ROLE_USER"){
             error.innerHTML = "You don't have permission to access this page!"
         }else{
+            localStorage.setItem('id', response["id"]);
             localStorage.setItem('token', response["tokenType"] + " " + response["accessToken"]);
             localStorage.setItem('fullName', response["fullName"]);
             window.location.assign("index.html");
