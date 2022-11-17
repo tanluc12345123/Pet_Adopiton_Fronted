@@ -289,53 +289,52 @@
                     <form class="user">
                         <div class="form-group">
                             <label class="control-label" for="task_name">Tên thú cưng</label>
-                            <input type="text" class="form-control form-control-user" id="inputNamePet"
-                                value="">
+                            <input type="text" class="form-control form-control-user" id="inputNamePet" value="">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Loại</label>
                             <select id="typePet" name="type_pet" class="form-control">
                                 <option selected>Chọn loại thú cưng</option>
                             </select>
-                            <div class="form-group">
-                                <label class="control-label" for="task_name">Giới tính</label>
-                                <select id="genderPet" name="gender_pet" class="form-control">
-                                    <option selected>Chọn giới tính</option>
-                                    <option value="1">Đực</option>
-                                    <option value="2">Cái</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="task_name">Màu</label>
-                                <input type="text" class="form-control form-control-user" id="inputColor"
-                                    value="">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="task_name">Cân nặng</label>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <input type="number" class="form-control form-control-user"
-                                            id="inputWeight" value="">
-                                    </div>
-                                    <div class="col-sm-9 justify-content-center align-self-center">
-                                        <label class="control-label" for="task_name">Kg</label>
-                                    </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Giới tính</label>
+                            <select id="genderPet" name="gender_pet" class="form-control">
+                                <option selected>Chọn giới tính</option>
+                                <option value="1">Đực</option>
+                                <option value="2">Cái</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Màu</label>
+                            <input type="text" class="form-control form-control-user" id="inputColor" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Cân nặng</label>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-user" id="inputWeight"
+                                        value="">
+                                </div>
+                                <div class="col-sm-9 justify-content-center align-self-center">
+                                    <label class="control-label" for="task_name">Kg</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="task_name">Tuổi</label>
-                                <input type="number" class="form-control form-control-user" id="inputAge">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="task_name">Mô tả</label>
-                                <textarea class="form-control"
-                                    id="inputDescription"></textarea>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Tuổi</label>
+                            <input type="number" class="form-control form-control-user" id="inputAge">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Mô tả</label>
+                            <textarea class="form-control" id="inputDescription"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
-                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addPet()"/>
+                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addPet()" />
                 </div>
             </div>
         </div>
