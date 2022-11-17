@@ -23,6 +23,7 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+
 </head>
 
 <body id="page-top">
@@ -202,56 +203,27 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="float-right" style="margin-bottom: 10px;">
-                                <button class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#">
+                                <button class="btn btn-primary btn-icon-split" data-toggle="modal"
+                                    data-target="#addModal">
                                     <span class="text">Thêm thú cưng</span>
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <div id="dataTable-wrapper" class="dataTables-wrapper dt-bootstrap4">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Tên thú cưng</th>
-                                                <th>Loại</th>
-                                                <th>Giới tính</th>
-                                                <th>Tuổi</th>
-                                                <th>Nhận nuôi</th>
-                                                <th>Tác vụ</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Tên thú cưng</th>
-                                                <th>Loại</th>
-                                                <th>Giới tính</th>
-                                                <th>Tuổi</th>
-                                                <th>Nhận nuôi</th>
-                                                <th>Tác vụ</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                    </table>
-                                </div>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên thú cưng</th>
+                                            <th>Loại</th>
+                                            <th>Giới tính</th>
+                                            <th>Tuổi</th>
+                                            <th>Nhận nuôi</th>
+                                            <th>Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -303,6 +275,73 @@
         </div>
     </div>
 
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm thú cưng</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user">
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Tên thú cưng</label>
+                            <input type="text" class="form-control form-control-user" id="inputNamePet"
+                                value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Loại</label>
+                            <select id="typePet" name="type_pet" class="form-control">
+                                <option selected>Chọn loại thú cưng</option>
+                            </select>
+                            <div class="form-group">
+                                <label class="control-label" for="task_name">Giới tính</label>
+                                <select id="genderPet" name="gender_pet" class="form-control">
+                                    <option selected>Chọn giới tính</option>
+                                    <option value="1">Đực</option>
+                                    <option value="2">Cái</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="task_name">Màu</label>
+                                <input type="text" class="form-control form-control-user" id="inputColor"
+                                    value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="task_name">Cân nặng</label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input type="number" class="form-control form-control-user"
+                                            id="inputWeight" value="">
+                                    </div>
+                                    <div class="col-sm-9 justify-content-center align-self-center">
+                                        <label class="control-label" for="task_name">Kg</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="task_name">Tuổi</label>
+                                <input type="number" class="form-control form-control-user" id="inputAge">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="task_name">Mô tả</label>
+                                <textarea class="form-control"
+                                    id="inputDescription"></textarea>
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addPet()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -318,6 +357,7 @@
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <!-- <script src="js/pet.js"></script> -->
     <script src="js/demo/datatables-demo.js"></script>
 
 </body>
