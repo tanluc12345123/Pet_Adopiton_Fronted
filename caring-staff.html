@@ -284,7 +284,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="user">
+                    <form class="user" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <div class="text-center">
                                 <img class="img-fluid" style="width: 10rem;" src="img/image-defautl.svg" alt="..."
@@ -293,9 +293,6 @@
                                     onchange="readURL(this)">
                                 <label for="avatar"><img class="img-fluid" style="width: 4rem;" src="img/upload.svg"
                                         alt="..."></label>
-                            </div>
-                            <div class="text-center">
-
                             </div>
                         </div>
                         <div class="form-group">
@@ -318,7 +315,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
-                    <input type="button" value="Thêm" class="btn btn-primary">
+                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addStaff()">
                 </div>
             </div>
         </div>
