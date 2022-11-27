@@ -105,31 +105,13 @@
                     <span>Trang thiết bị, thức ăn</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="news.html">
-                    <i class="fas fa-newspaper"></i>
-                    <span>Tin tức</span></a>
-            </li>
+             
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link" href="statistic.html">
                     <i class="fas fa-chart-line"></i>
-                    <span>Thống kê</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <!-- <h6 class="collapse-header">Other Pages:</h6> -->
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
+                    <span>Thống kê</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
@@ -218,6 +200,34 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Lịch trình</h1>
 
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="float-left" style="margin-bottom: 10px;">
+                                <button class="btn btn-primary btn-icon-split" data-toggle="modal"
+                                    data-target="#addModal">
+                                    <span class="text">Thêm lịch trình</span>
+                                </button>
+                            </div>
+                            <div class="float-right" style="margin-bottom: 10px;">
+                                <button class="btn btn-primary btn-icon-split" data-toggle="modal"
+                                    data-target="#editModal">
+                                    <span class="text">Điều chỉnh lịch trình</span>
+                                </button>
+                            </div>
+                            <div class="border-bottom-secondary" style="margin-top: 50px;">
+                            </div>
+                            <div class="float-left" style="margin-top: 10px;">
+                                <select id="typePet" name="typePet" class="form-control">
+                                </select>
+                            </div>
+                            <div class="border-bottom-secondary" style="margin-top: 60px;"></div>
+                            
+                            <div id="description" style="margin-top: 10px;">
+                                
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -265,6 +275,38 @@
         </div>
     </div>
 
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm lịch trình</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Chọn loại thú cưng:</label>
+                            <select id="typePet2" name="typePet2" class="form-control">
+                                <option selected>Chọn loại thú cưng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Mô tả:</label>
+                            <textarea class="form-control" id="inputDescription" style="height: 200px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addSchedulePet()">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -274,6 +316,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="js/schedule-pet.js"></script>
+
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
 
 </body>
 

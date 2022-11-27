@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -65,7 +67,7 @@
                 </div>
             </li>
 
-            
+
 
             <li class="nav-item">
                 <a class="nav-link" href="caring-staff.html">
@@ -109,11 +111,7 @@
                     <span>Trang thiết bị, thức ăn</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="news.html">
-                    <i class="fas fa-newspaper"></i>
-                    <span>Tin tức</span></a>
-            </li>
+             
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -164,8 +162,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -193,6 +190,28 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Các tình nguyện viên đăng ký</h1>
 
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên tình nguyện viên</th>
+                                            <th>Giới tính</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Tên hoạt động</th>
+                                            <th>Trạng thái</th>
+                                            <th>Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -249,6 +268,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="js/volunteers.js"></script>
 
 </body>
 
