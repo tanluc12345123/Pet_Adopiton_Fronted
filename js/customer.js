@@ -23,7 +23,7 @@ const fetchCustomers = async () => {
             body += `<td>` + customer.address + `</td>`;
             body += `<td>` + pet.name + `</td>`;
             body += `<td>` + pet.nameType + `</td>`;
-            body += `<td>` + pet.dateAdopt.slice(0,10) + `</td>`;
+            body += `<td>` + pet.dateAdopt + `</td>`;
             if (pet.statusAdopt == true) {
                 body += `<td>Đã nhận nuôi</td>`;
                 body += `<td></td>`;
