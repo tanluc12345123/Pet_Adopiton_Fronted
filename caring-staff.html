@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -148,8 +150,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -177,6 +178,34 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Nhân viên chăm sóc</h1>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="float-right" style="margin-bottom: 10px;">
+                                <button class="btn btn-primary btn-icon-split" data-toggle="modal"
+                                    data-target="#addModal">
+                                    <span class="text">Thêm nhân viên chăm sóc</span>
+                                </button>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên nhân viên</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Số CCCD</th>
+                                            <th>Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -225,6 +254,55 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên chăm sóc</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img class="img-fluid" style="width: 10rem;" src="img/image-defautl.svg" alt="..."
+                                    id="imgAvatar">
+                                <input type="file" accept="image/*" name="avatar" id="avatar" style="display: none;"
+                                    onchange="readURL(this)">
+                                <label for="avatar"><img class="img-fluid" style="width: 4rem;" src="img/upload.svg"
+                                        alt="..."></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Tên nhân viên:</label>
+                            <input type="text" class="form-control form-control-user" id="inputName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Ngày sinh</label>
+                            <input type="date" class="form-control form-control-user" id="inputBirthDay">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Số điện thoại:</label>
+                            <input type="text" class="form-control form-control-user" id="inputPhoneNumber" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">CCCD:</label>
+                            <input type="text" class="form-control form-control-user" id="inputIdentification" value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                    <input type="button" value="Thêm" class="btn btn-primary" onclick="addStaff()">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -235,12 +313,10 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/caring-staff.js"></script>
 
 </body>
 
