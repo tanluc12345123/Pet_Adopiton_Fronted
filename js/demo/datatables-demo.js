@@ -3,8 +3,8 @@ $(document).ready(function () {
   newfunction();
   fetchTypePet()
 });
-// const url = "https://backend-pet-adoption.herokuapp.com/api/";
-const url = "http://localhost:8080/api/";
+const url = "https://backend-pet-adoption.herokuapp.com/api/";
+// const url = "http://localhost:8080/api/";
 const fetchTypePet = async () => {
   const requestType = await fetch(`${url}types`)
   let responseType = await requestType.json()
