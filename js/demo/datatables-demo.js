@@ -3,8 +3,8 @@ $(document).ready(function () {
   newfunction();
   fetchTypePet()
 });
-const url = "https://backend-pet-adoption.herokuapp.com/api/";
-
+// const url = "https://backend-pet-adoption.herokuapp.com/api/";
+const url = "http://localhost:8080/api/";
 const fetchTypePet = async () => {
   const requestType = await fetch(`${url}types`)
   let responseType = await requestType.json()
@@ -84,7 +84,12 @@ async function newfunction() {
       body += `<td>Cái</td>`;
     }
     body += `<td>` + pet.age + `</td>`;
-    body += `<td class ="text-center"><input type="checkbox" value="" id="flexCheck${pet.id}"></td>`;
+    if (pet.adopted) {
+      body += `<td class ="text-center"><input type="checkbox" value="" checked readonly></td>`;
+    } else {
+      body += `<td class ="text-center"><input type="checkbox" value="" readonly></td>`;
+    }
+
     body += `<td><button class="btn btn-success btn-circle" type="button" data-placement="top" title="Chỉnh sửa" data-toggle="modal" data-target="#EditModal-${pet.id}"><i class="fas fa-edit"></i></button>
     <button class="btn btn-danger btn-circle"" type="button" data-placement="top" title="Xoá" data-toggle="modal" data-target="#DeleteModal-${pet.id}"><i class="fas fa-trash"></i></button></td>`;
     i++
@@ -93,6 +98,19 @@ async function newfunction() {
   $('body').append(modalDelete)
   $(".table-body").append(body)
   $('#dataTable').DataTable();
+  for (let pet of arrayPet) {
+    $(`#imagePetUpdate-${pet.id}`).on("change", async function (e) {
+      var files = e.target.files;
+      filesLength = files.length;
+      let uploads = [];
+      for (var i = 0; i < filesLength; i++) {
+        uploads.push(uploadImagePet(pet.id, files[i]))
+      }
+      await Promise.all(uploads);
+      alert("Tải ảnh thành công")
+      window.location.reload()
+    });
+  }
   console.log(arrayPet)
 }
 
@@ -109,15 +127,30 @@ function createModalEdit(pet, arrs) {
                 </button>
             </div>
             <div class="modal-body">
-                <form class="user">
+                <form class="user" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                      <div class="text-center">
+                          <input type="file" accept="image/*" name="imagePetUpdate-${pet.id}" id="imagePetUpdate-${pet.id}" style="display: none;"
+                              multiple>
+                          <label for="imagePetUpdate-${pet.id}"><img class="img-fluid" style="width: 4rem;" src="img/upload.svg"
+                                  alt="..."></label>
+                      </div>
+                    </div>
+                    <div class="form-group" id="imagePet-${pet.id}">`;
+  const arrayImagesPet = pet.petImages
+  for (let image of arrayImagesPet) {
+    body += `<div class="name" id="image-${image.id}"><img class="img-fluid" style="width: 3rem; height: 3rem;" src="${image.image}" alt="..."
+                      >      <button class="btn btn-danger btn-circle"" type="button"title="Xoá" onclick="deletePetImage(${image.id})"><i class="fas fa-times-circle"></i></button></div>`;
+  }
+  body += `</div>
                     <div class="form-group">
                       <label class="control-label" for="task_name">Tên thú cưng</label>
                         <input type="text" class="form-control form-control-user"
-                            id="inputNamePet-${pet.id}" value="${pet.name}">
+                            id="inputNamePetUpdate-${pet.id}" value="${pet.name}">
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="task_name">Loại</label>
-                      <select id="typePet-${pet.id}" name="type_pet" class="form-control">`;
+                      <select id="typePetUpdate-${pet.id}" name="type_pet" class="form-control">`;
   for (let type of arrs) {
     if (pet.nameType == type.nameType) {
       body += `<option value="${type.id}" selected>${type.nameType}</option>`
@@ -129,7 +162,7 @@ function createModalEdit(pet, arrs) {
             </div>
             <div class="form-group">
             <label class="control-label" for="task_name">Giới tính</label>
-            <select id="genderPet-${pet.id}" name="gender_pet" class="form-control">`;
+            <select id="genderPetUpdate-${pet.id}" name="gender_pet" class="form-control">`;
   if (pet.gender == true) {
     body += `<option value="0" selected>Đực</option>`
     body += `<option value="1">Cái</option>`
@@ -141,14 +174,14 @@ function createModalEdit(pet, arrs) {
             <div class="form-group">
             <label class="control-label" for="task_name">Màu</label>
                 <input type="text" class="form-control form-control-user"
-                    id="inputColor-${pet.id}" value = "${pet.color}">
+                    id="inputColorUpdate-${pet.id}" value = "${pet.color}">
             </div>
             <div class="form-group">
             <label class="control-label" for="task_name">Cân nặng</label>
             <div class="row">
             <div class="col-sm-3">
                 <input type="number" class="form-control form-control-user"
-                    id="inputWeight-${pet.id}" value = "${pet.weight}">
+                    id="inputWeightUpdate-${pet.id}" value = "${pet.weight}">
                     </div>
                     <div class="col-sm-9 justify-content-center align-self-center">
                     <label class="control-label" for="task_name">Kg</label>
@@ -158,27 +191,42 @@ function createModalEdit(pet, arrs) {
             <div class="form-group">
             <label class="control-label" for="task_name">Tuổi</label>
                 <input type="number" class="form-control form-control-user"
-                    id="inputAge-${pet.id}" value = "${pet.age}">
+                    id="inputAgeUpdate-${pet.id}" value = "${pet.age}">
             </div>
             <div class="form-group">
             <label class="control-label" for="task_name">Mô tả</label>
                 <textarea class="form-control"
-                    id="inputDescription-${pet.id}">${pet.description}</textarea>
+                    id="inputDescriptionUpdate-${pet.id}">${pet.description}</textarea>
             </div>
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
-                  <label class="control-label" for="task_name">Triệt sản</label>
-                  <input type="checkbox" value="" id="sterilization-${pet.id}">
+                  <label class="control-label" for="sterilization-${pet.id}">Triệt sản   </label>`;
+  if (pet.status.sterilization) {
+    body += `<input type="checkbox" value="" id="sterilization-${pet.id}" checked>`;
+  } else {
+    body += `<input type="checkbox" value="" id="sterilization-${pet.id}">`;
+  }
+  body += `
               </div>
               <div class="col-sm-6">
-                  <label class="control-label" for="task_name">Tiêm dại</label>
-                  <input type="checkbox" value="" id="rabiesVaccination-${pet.id}">
+                  <label class="control-label" for="task_name">Tiêm dại    </label>`;
+  if (pet.status.rabiesVaccination) {
+    body += `<input type="checkbox" value="" id="rabiesVaccination-${pet.id}" checked>`;
+  } else {
+    body += `<input type="checkbox" value="" id="rabiesVaccination-${pet.id}">`;
+  }
+  body += `
               </div>
           </div>
           <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
-                  <label class="control-label" for="task_name">Tiêm phòng</label>
-                  <input type="checkbox" value="" id="vaccination-${pet.id}">
+                  <label class="control-label" for="task_name">Tiêm phòng     </label>`;
+  if (pet.status.vaccination) {
+    body += `<input type="checkbox" value="" id="vaccination-${pet.id}" checked>`;
+  } else {
+    body += `<input type="checkbox" value="" id="vaccination-${pet.id}">`;
+  }
+  body += `
               </div>
           </div>
             <p id="error" class="small" style="color: rgb(222, 24, 24);"></p>
@@ -186,7 +234,7 @@ function createModalEdit(pet, arrs) {
     </div>
     <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
-        <input type="button" value="Thay đổi" class="btn btn-primary"/>
+        <button class="btn btn-primary" onclick = "updatePet(${pet.id},${pet.status.id})">Thay đổi</button>
     </div></div></div></div>`;
   return body
 }
@@ -211,15 +259,64 @@ function createDeleteModal(pet) {
 }
 
 const updatePet = async (petId, statusId) => {
-  const name = document.getElementById(`inputNamePet-${petId}`);
-  const gender = document.getElementById(`inputNamePet-${petId}`);
-  const color = document.getElementById(`inputNamePet-${petId}`);
-  const age = document.getElementById(`inputNamePet-${petId}`);
-  const weight = document.getElementById(`inputNamePet-${petId}`);
-  const description = document.getElementById(`inputNamePet-${petId}`);
-  const typeId = document.getElementById(`inputNamePet-${petId}`);
-  console.log(arrayType)
-  return arrayType
+  const name = document.getElementById(`inputNamePetUpdate-${petId}`).value;
+  const gender = document.getElementById(`genderPetUpdate-${petId}`).value;
+  const color = document.getElementById(`inputColorUpdate-${petId}`).value;
+  const age = document.getElementById(`inputAgeUpdate-${petId}`).value;
+  const weight = document.getElementById(`inputWeightUpdate-${petId}`).value;
+  const description = document.getElementById(`inputDescriptionUpdate-${petId}`).value;
+  const typeId = document.getElementById(`typePetUpdate-${petId}`).value;
+  const sterilization = document.getElementById(`sterilization-${petId}`).checked;
+  const rabiesVaccination = document.getElementById(`rabiesVaccination-${petId}`).checked;
+  const vaccination = document.getElementById(`vaccination-${petId}`).checked;
+
+  var genderPet = false;
+  if (gender == 1) {
+    genderPet = true;
+  }
+
+  const status = {
+    sterilization: sterilization,
+    rabiesVaccination: rabiesVaccination,
+    vaccination: vaccination,
+  }
+  const pet = {
+    name: name.trim(),
+    gender: genderPet,
+    color: color.trim(),
+    age: age.trim(),
+    weight: weight.trim(),
+    description: description.trim(),
+    status: status
+  };
+  console.log(pet)
+
+  const request = await fetch(`${url}pets/${petId}/types/${typeId}/status/${statusId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(pet)
+  })
+  let response = await request.json()
+  if (response['status'] == "ok") {
+    alert("Cập nhật thú cưng thành công")
+    window.location.reload()
+  } else {
+    alert("Cập nhật thú cưng thất bại")
+  }
+}
+
+const uploadImagePet = async (petId, file) => {
+  const formData = new FormData();
+  formData.append('file', file)
+
+  const request = await fetch(`${url}pets/${petId}/upload`, {
+    method: 'POST',
+    body: formData
+  })
+  let response = await request.json()
+  return response
 }
 
 const deletePet = async (petId) => {
@@ -232,3 +329,15 @@ const deletePet = async (petId) => {
     window.location.reload()
   }
 }
+
+const deletePetImage = async (petImageId) => {
+  const request = await fetch(`${url}pets/image/${petImageId}`, {
+    method: 'DELETE'
+  })
+  let response = await request.json()
+  if (response['status'] == "ok") {
+    alert("Xoá thành công")
+    $(`#image-${petImageId}`).hide()
+  }
+}
+
