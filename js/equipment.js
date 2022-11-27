@@ -19,7 +19,7 @@ const fetchEquipments = async () => {
         body += `<tr class= "even"><td>` + i + `</td>`;
         body += `<td class ="sorting_1">` + equipment.name + `</td>`;
         body += `<td>` + equipment.quantity + `</td>`;
-        body += `<td>` + equipment.purchasePrice + `</td>`;
+        body += `<td>` + formatToVND(equipment.purchasePrice) + `</td>`;
         body += `<td>` + equipment.datePurchase + `</td>`;
         body += `<td>` + equipment.status + `</td>`;
         body += `<td><button class="btn btn-success btn-circle" type="button" data-placement="top" title="Chỉnh sửa" data-toggle="modal" data-target="#EditModal-${equipment.id}"><i class="fas fa-edit"></i></button>
@@ -208,4 +208,8 @@ const deleteEquipment = async (equipmentId) => {
         alert("Xoá thành công")
         window.location.reload()
     }
+}
+
+function formatToVND(money) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
 }

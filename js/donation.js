@@ -13,18 +13,19 @@ const fetchDonors = async () => {
     var modalDelete = '';
     let i = 1
     for (let donor of arrayDonors) {
-          modalEdit += createModalEdit(donor)
-          modalDelete += createDeleteModal(donor)
+        modalEdit += createModalEdit(donor)
+        modalDelete += createDeleteModal(donor)
         body += `<tr class= "even"><td>` + i + `</td>`;
         body += `<td class ="sorting_1">` + donor.fullName + `</td>`;
-        body += `<td>` + donor.donationAmount + `</td>`;
+        body += `<td>` + formatToVND(donor.donationAmount) + `</td>`;
         body += `<td>` + donor.content + `</td>`;
+        body += `<td>` + donor.dateDonate + `</td>`;
         body += `<td><button class="btn btn-success btn-circle" type="button" data-placement="top" title="Chỉnh sửa" data-toggle="modal" data-target="#EditModal-${donor.id}"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-danger btn-circle"" type="button" data-placement="top" title="Xoá" data-toggle="modal" data-target="#DeleteModal-${donor.id}"><i class="fas fa-trash"></i></button></td>`;
         i++
     }
-      $('body').append(modalEdit)
-      $('body').append(modalDelete)
+    $('body').append(modalEdit)
+    $('body').append(modalDelete)
     $(".table-body").append(body)
     $('#dataTable').DataTable();
     console.log(arrayDonors)
@@ -35,10 +36,13 @@ const addDonor = async () => {
     const amount = document.getElementById('inputAmount').value;
     const content = document.getElementById('inputContent').value;
 
+    const dateDonate = new Date($('#inputDate').val());
+
     const form = {
         fullName: name.trim(),
         donationAmount: amount.trim(),
         content: content.trim(),
+        dateDonate: dateDonate,
     }
     const request = await fetch(`${url}donates/insert`, {
         method: 'POST',
@@ -101,6 +105,10 @@ function createModalEdit(donor) {
                             <label class="control-label" for="task_name">Nội dung:</label>
                             <textarea class="form-control" id="inputContentUpdate">${donor.content}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label" for="task_name">Ngày ủng hộ:</label>
+                            <input type="date" class="form-control form-control-user" id="inputDateUpdate" value="${donor.dateDonate}">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -108,17 +116,19 @@ function createModalEdit(donor) {
                     <input type="button" value="Thay đổi" class="btn btn-primary" onclick="updateDonor(${donor.id})"/>
                 </div></div></div></div>`;
     return body;
-} 
+}
 
-const updateDonor = async(donorId) => {
+const updateDonor = async (donorId) => {
     const name = document.getElementById('inputNameUpdate').value;
     const amount = document.getElementById('inputAmountUpdate').value;
     const content = document.getElementById('inputContentUpdate').value;
 
+    const dateDonate = new Date($('#inputDateUpdate').val());
     const form = {
         fullName: name.trim(),
         donationAmount: amount.trim(),
         content: content.trim(),
+        dateDonate: dateDonate,
     }
     const request = await fetch(`${url}donates/${donorId}`, {
         method: 'PUT',
@@ -146,4 +156,8 @@ const deleteDonor = async (donorId) => {
         alert("Xoá thành công")
         window.location.reload()
     }
+}
+
+function formatToVND(money) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
 }
