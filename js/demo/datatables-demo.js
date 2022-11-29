@@ -1,12 +1,18 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function () {
-  newfunction();
-  fetchTypePet()
+  if (localStorage.getItem('username') == null) {
+    window.location.assign("login.html")
+  } else {
+    document.getElementById('name').innerHTML = localStorage.getItem('username')
+    newfunction();
+    fetchTypePet()
+  }
+
 });
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 const fetchTypePet = async () => {
-  const requestType = await fetch(`${url}types`)
+  const requestType = await fetch(`${url}nologin/types`)
   let responseType = await requestType.json()
   const arrayType = responseType["data"];
   var selectList = ``;
@@ -44,6 +50,7 @@ const addPet = async () => {
   const request = await fetch(`${url}pets/types/${type}`, {
     method: 'POST',
     headers: {
+      'Authorization': localStorage.getItem("token"),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(pet)
@@ -59,11 +66,11 @@ const addPet = async () => {
 
 async function newfunction() {
 
-  const request = await fetch(`${url}pets`)
+  const request = await fetch(`${url}nologin/pets`)
   let response = await request.json()
   const arrayPet = response["data"];
 
-  const requestType = await fetch(`${url}types`)
+  const requestType = await fetch(`${url}nologin/types`)
   let responseType = await requestType.json()
   const arrayType = responseType["data"];
   var body = '';
@@ -294,6 +301,7 @@ const updatePet = async (petId, statusId) => {
   const request = await fetch(`${url}pets/${petId}/types/${typeId}/status/${statusId}`, {
     method: 'PUT',
     headers: {
+      'Authorization': localStorage.getItem("token"),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(pet)
@@ -310,8 +318,12 @@ const updatePet = async (petId, statusId) => {
 const uploadImagePet = async (petId, file) => {
   const formData = new FormData();
   formData.append('file', file)
-
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
+  }
   const request = await fetch(`${url}pets/${petId}/upload`, {
+    mode: 'no-cors',
     method: 'POST',
     body: formData
   })
@@ -321,6 +333,9 @@ const uploadImagePet = async (petId, file) => {
 
 const deletePet = async (petId) => {
   const request = await fetch(`${url}pets/${petId}`, {
+    headers: {
+      'Authorization': localStorage.getItem("token")
+    },
     method: 'DELETE'
   })
   let response = await request.json()
@@ -332,6 +347,9 @@ const deletePet = async (petId) => {
 
 const deletePetImage = async (petImageId) => {
   const request = await fetch(`${url}pets/image/${petImageId}`, {
+    headers: {
+      'Authorization': localStorage.getItem("token")
+    },
     method: 'DELETE'
   })
   let response = await request.json()
@@ -341,3 +359,10 @@ const deletePetImage = async (petImageId) => {
   }
 }
 
+const logout = async () => {
+  localStorage.removeItem("id");
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("expiresAt");
+  window.location.assign("login.html");
+}

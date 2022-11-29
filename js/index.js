@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    }else{
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        document.getElementById('username').innerHTML = "Username: "+localStorage.getItem('username')
+    }
+});
 const url = "https://backend-pet-adoption.herokuapp.com/api/users/";
 
 const changePass = async () => {
@@ -31,12 +39,13 @@ const changePass = async () => {
             alert("Đổi mật khẩu thành công!")
         }
     }
-    
+
 }
 
 const logout = async () => {
-    localStorage.removeItem("id")
-    localStorage.removeItem("token")
-    localStorage.removeItem("fullName")
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
     window.location.assign("login.html");
 }

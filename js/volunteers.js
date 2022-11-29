@@ -1,12 +1,21 @@
 $(document).ready(function () {
     // $('#dataTable').DataTable();
-    fetchVolunteers()
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    } else {
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchVolunteers()
+    }
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 const fetchVolunteers = async () => {
-    const request = await fetch(`${url}volunteers/customers`)
+    const request = await fetch(`${url}volunteers/customers`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
     let response = await request.json()
     const arrayVolunteers = response["data"];
     var body = '';
@@ -68,6 +77,9 @@ function createDeleteModal(volunteer, volunteering) {
 
 const deleteRegisterVolunteering = async (volunteerId, volunteeringId) => {
     const request = await fetch(`${url}users/${volunteerId}/volunteers/${volunteeringId}/delete`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT'
     })
     let response = await request.json()
@@ -75,4 +87,12 @@ const deleteRegisterVolunteering = async (volunteerId, volunteeringId) => {
         alert("Xoá thành công")
         window.location.reload()
     }
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }

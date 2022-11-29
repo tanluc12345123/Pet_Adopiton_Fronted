@@ -2,7 +2,11 @@
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 const fetchCaringStaff = async () => {
-    const request = await fetch(`${url}admin/caringStaff`)
+    const request = await fetch(`${url}admin/caringStaff`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        }
+    })
     let response = await request.json()
     const arrayCaringStaff = response["data"];
     var body = '';
@@ -99,6 +103,9 @@ function createDeleteModal(staff) {
 
 const deleteStaff = async (staffId) => {
     const request = await fetch(`${url}admin/caringStaff/${staffId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'DELETE'
     })
     let response = await request.json()
@@ -128,6 +135,9 @@ const updateStaff = async (staffId) => {
     formData.append('file', image.files[0])
 
     const request = await fetch(`${url}admin/caringStaff/${staffId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT',
         body: formData
     })
@@ -186,6 +196,9 @@ const addStaff = async () => {
     console.log(formData)
 
     const request = await fetch(`${url}admin/caringStaff/create`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'POST',
         body: formData
     })
@@ -199,6 +212,20 @@ const addStaff = async () => {
 }
 
 $(document).ready(function () {
-    fetchCaringStaff()
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    }else{
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchCaringStaff()
+    }
+    
     // $('#dataTable').DataTable();
 });
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
+}

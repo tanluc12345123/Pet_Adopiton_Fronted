@@ -26,7 +26,8 @@ const login = async () => {
         }else{
             localStorage.setItem('id', response["id"]);
             localStorage.setItem('token', response["tokenType"] + " " + response["accessToken"]);
-            localStorage.setItem('fullName', response["fullName"]);
+            localStorage.setItem('expiresAt', response["expiresAt"]);
+            localStorage.setItem('username', response["username"]);
             window.location.assign("index.html");
         }
     }

@@ -1,17 +1,23 @@
 $(document).ready(function () {
-    fetchVolunteerings("happening")
-    $('#statusVolunteer').on('change', function (e) {
-        var status = $('#statusVolunteer').find(":selected").val();
-        if (status == 0) {
-            fetchVolunteerings("happening")
-        }
-        if (status == 1) {
-            fetchVolunteerings("tookPlace")
-        }
-        if (status == 2) {
-            fetchVolunteerings("cancle")
-        }
-    })
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    } else {
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchVolunteerings("happening")
+        $('#statusVolunteer').on('change', function (e) {
+            var status = $('#statusVolunteer').find(":selected").val();
+            if (status == 0) {
+                fetchVolunteerings("happening")
+            }
+            if (status == 1) {
+                fetchVolunteerings("tookPlace")
+            }
+            if (status == 2) {
+                fetchVolunteerings("cancle")
+            }
+        })
+    }
+
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
@@ -21,7 +27,7 @@ const fetchVolunteerings = async (status) => {
     dataTable.clear();
     dataTable.draw();
     dataTable.destroy();
-    const request = await fetch(`${url}volunteers/status?status=${status}`)
+    const request = await fetch(`${url}nologin/volunteers/status?status=${status}`)
     let response = await request.json()
     const arrayVolunteers = response["data"];
     var body = '';
@@ -80,6 +86,9 @@ const addVolunteering = async () => {
     console.log(formData)
 
     const request = await fetch(`${url}volunteers/insert`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'POST',
         body: formData
     })
@@ -219,6 +228,9 @@ const updateVolunteering = async (volunteerId) => {
     formData.append('file', image.files[0])
     console.log(image.files[0])
     const request = await fetch(`${url}volunteers/${volunteerId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT',
         body: formData
     })
@@ -234,6 +246,9 @@ const updateVolunteering = async (volunteerId) => {
 
 const deleteVolunteering = async (volunteerId) => {
     const request = await fetch(`${url}volunteers/cancel/${volunteerId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT'
     })
     let response = await request.json()
@@ -265,4 +280,12 @@ function readURLUpdate(input) {
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }

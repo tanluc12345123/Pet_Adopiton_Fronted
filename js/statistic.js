@@ -1,16 +1,20 @@
 $(document).ready(function () {
     // $('#dataTable').DataTable();
     // fetchVolunteers()
-    var now = new Date();
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var today = now.getFullYear() + "-" + (month);
-    document.getElementById('inputMonth').max = today
-    document.getElementById('inputMonth').value = today
-    fetchStatistic(formatMonth(document.getElementById('inputMonth').value))
-    document.getElementById('inputMonth').onchange = function(){
-        fetchStatistic(formatMonth(this.value))
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    } else {
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        var now = new Date();
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = now.getFullYear() + "-" + (month);
+        document.getElementById('inputMonth').max = today
+        document.getElementById('inputMonth').value = today
+        fetchStatistic(formatMonth(document.getElementById('inputMonth').value))
+        document.getElementById('inputMonth').onchange = function () {
+            fetchStatistic(formatMonth(this.value))
+        }
     }
-    console.log(formatMonth(document.getElementById('inputMonth').value))
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
@@ -22,10 +26,14 @@ function formatMonth(currentMonth) {
     return month + "/" + year
 }
 
-const fetchStatistic = async(month) => {
-    const request = await fetch(`${url}statistic?month=${month}`)
+const fetchStatistic = async (month) => {
+    const request = await fetch(`${url}statistic?month=${month}`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
     let response = await request.json()
-    if(response['status'] == "ok"){
+    if (response['status'] == "ok") {
         const statistic = response['data']
         document.getElementById('petAdopted').innerHTML = statistic.numberPetAdopt
         document.getElementById('petNoAdopted').innerHTML = statistic.numberPetNoAdopt
@@ -37,4 +45,12 @@ const fetchStatistic = async(month) => {
 
 function formatToVND(money) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }

@@ -1,18 +1,23 @@
 $(document).ready(function () {
-    fetchTypePet()
-    fetchTypePet2()
-    fetchSchedulePet(1)
-    $('#typePet').on('change', function (e) {
-        var id = $('#typePet').find(":selected").val();
-        fetchSchedulePet(id)
-    })
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    } else {
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchTypePet()
+        fetchTypePet2()
+        fetchSchedulePet(1)
+        $('#typePet').on('change', function (e) {
+            var id = $('#typePet').find(":selected").val();
+            fetchSchedulePet(id)
+        })
+    }
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 
 const fetchTypePet = async () => {
-    const requestType = await fetch(`${url}types`)
+    const requestType = await fetch(`${url}nologin/types`)
     let responseType = await requestType.json()
     const arrayType = responseType["data"];
     var selectList = ``;
@@ -20,11 +25,15 @@ const fetchTypePet = async () => {
         selectList += `<option value="${type.id}">${type.nameType}</option>`
     }
     $('#typePet').append(selectList)
-    
+
 }
 
 const fetchTypePet2 = async () => {
-    const requestType = await fetch(`${url}petSchedule/types`)
+    const requestType = await fetch(`${url}petSchedule/types`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
     let responseType = await requestType.json()
     const arrayType = responseType["data"];
     var selectList = ``;
@@ -35,7 +44,11 @@ const fetchTypePet2 = async () => {
 }
 
 const fetchSchedulePet = async (typeId) => {
-    const request = await fetch(`${url}petSchedule/${typeId}`)
+    const request = await fetch(`${url}petSchedule/${typeId}`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
     let response = await request.json()
     var modalEdit = '';
     if (response['data'] != null) {
@@ -64,6 +77,7 @@ const addSchedulePet = async () => {
     const request = await fetch(`${url}petSchedule/types/${type}`, {
         method: 'POST',
         headers: {
+            'Authorization': localStorage.getItem("token"),
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(form)
@@ -117,6 +131,7 @@ const updatePetSchedule = async (petScheduleId) => {
     const request = await fetch(`${url}petSchedule/${petScheduleId}`, {
         method: 'PUT',
         headers: {
+            'Authorization': localStorage.getItem("token"),
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(form)
@@ -129,4 +144,12 @@ const updatePetSchedule = async (petScheduleId) => {
         alert("Cập nhật lịch trình quân thất bại")
     }
 
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }

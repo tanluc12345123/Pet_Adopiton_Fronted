@@ -1,12 +1,21 @@
 $(document).ready(function () {
     // $('#dataTable').DataTable();
-    fetchEquipments()
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    }else{
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchEquipments()
+    }
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 const fetchEquipments = async () => {
-    const request = await fetch(`${url}equipments`)
+    const request = await fetch(`${url}equipments`,{
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
     let response = await request.json()
     const arrayEquipments = response["data"];
     var body = '';
@@ -81,6 +90,9 @@ const addEquipment = async () => {
     console.log(formData)
 
     const request = await fetch(`${url}equipments/insert`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'POST',
         body: formData
     })
@@ -186,6 +198,9 @@ const updateEquipment = async(equipmentId) => {
     formData.append('datePurchase', datePurchase)
     formData.append('file', image.files[0])
     const request = await fetch(`${url}equipments/${equipmentId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT',
         body: formData
     })
@@ -201,6 +216,9 @@ const updateEquipment = async(equipmentId) => {
 
 const deleteEquipment = async (equipmentId) => {
     const request = await fetch(`${url}equipments/${equipmentId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'DELETE'
     })
     let response = await request.json()
@@ -212,4 +230,12 @@ const deleteEquipment = async (equipmentId) => {
 
 function formatToVND(money) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }

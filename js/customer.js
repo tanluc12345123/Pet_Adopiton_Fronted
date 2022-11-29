@@ -1,12 +1,22 @@
 $(document).ready(function () {
     // $('#dataTable').DataTable();
-    fetchCustomers()
+    if (localStorage.getItem('username') == null) {
+        window.location.assign("login.html")
+    } else {
+        document.getElementById('name').innerHTML = localStorage.getItem('username')
+        fetchCustomers()
+    }
+
 });
 
 const url = "https://backend-pet-adoption.herokuapp.com/api/";
 // const url = "http://localhost:8080/api/";
 const fetchCustomers = async () => {
-    const request = await fetch(`${url}pets/customers`)
+    const request = await fetch(`${url}pets/customers`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        }
+    })
     let response = await request.json()
     const arrayCustomers = response["data"];
     var body = '';
@@ -84,6 +94,9 @@ function createAcceptModal(pet) {
 
 const deleteRegisterAdoptPet = async (petId) => {
     const request = await fetch(`${url}users/pet/${petId}/delete`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT'
     })
     let response = await request.json()
@@ -95,6 +108,9 @@ const deleteRegisterAdoptPet = async (petId) => {
 
 const acceptRegisterAdoptPet = async (petId) => {
     const request = await fetch(`${url}users/pet/${petId}/accept`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
         method: 'PUT'
     })
     let response = await request.json()
@@ -102,4 +118,12 @@ const acceptRegisterAdoptPet = async (petId) => {
         alert("Thú cưng đã được nhận nuôi")
         window.location.reload()
     }
+}
+
+const logout = async () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("expiresAt");
+    window.location.assign("login.html");
 }
