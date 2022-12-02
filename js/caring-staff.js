@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
-const url = "https://backend-pet-adoption.herokuapp.com/api/";
-// const url = "http://localhost:8080/api/";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/";
+const url = "http://localhost:8080/api/";
 const fetchCaringStaff = async () => {
     const request = await fetch(`${url}admin/caringStaff`,{
         headers: {

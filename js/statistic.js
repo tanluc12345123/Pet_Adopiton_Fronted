@@ -17,8 +17,8 @@ $(document).ready(function () {
     }
 });
 
-const url = "https://backend-pet-adoption.herokuapp.com/api/";
-// const url = "http://localhost:8080/api/";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/";
+const url = "http://localhost:8080/api/";
 
 function formatMonth(currentMonth) {
     year = currentMonth.slice(0, 4)

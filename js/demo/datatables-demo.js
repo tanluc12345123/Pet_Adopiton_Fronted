@@ -9,8 +9,8 @@ $(document).ready(function () {
   }
 
 });
-const url = "https://backend-pet-adoption.herokuapp.com/api/";
-// const url = "http://localhost:8080/api/";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/";
+const url = "http://localhost:8080/api/";
 const fetchTypePet = async () => {
   const requestType = await fetch(`${url}nologin/types`)
   let responseType = await requestType.json()
@@ -318,12 +318,10 @@ const updatePet = async (petId, statusId) => {
 const uploadImagePet = async (petId, file) => {
   const formData = new FormData();
   formData.append('file', file)
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
-  }
   const request = await fetch(`${url}pets/${petId}/upload`, {
-    mode: 'no-cors',
+    headers: {
+      'Authorization': localStorage.getItem("token")
+    },
     method: 'POST',
     body: formData
   })

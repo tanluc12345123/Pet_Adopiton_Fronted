@@ -1,4 +1,5 @@
-const url = "https://backend-pet-adoption.herokuapp.com/api/auth/signup";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/auth/signup";
+const url = "http://localhost:8080/api/auth/signup";
 
 const register = async () => {
     const username = document.getElementById("inputUsername");

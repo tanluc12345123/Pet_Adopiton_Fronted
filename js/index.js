@@ -6,7 +6,8 @@ $(document).ready(function () {
         document.getElementById('username').innerHTML = "Username: "+localStorage.getItem('username')
     }
 });
-const url = "https://backend-pet-adoption.herokuapp.com/api/users/";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/users/";
+const url = "http://localhost:8080/api/auth/users/";
 
 const changePass = async () => {
     const oldPass = document.getElementById("inputOldPassword");
@@ -27,6 +28,7 @@ const changePass = async () => {
         const request = await fetch(`${url}${id}/changePass`, {
             method: 'PUT',
             headers: {
+                'Authorization': localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(form)
@@ -37,6 +39,7 @@ const changePass = async () => {
         } else {
             $('#changePasswordModal').modal('hide');
             alert("Đổi mật khẩu thành công!")
+            window.location.reload()
         }
     }
 

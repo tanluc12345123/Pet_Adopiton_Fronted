@@ -8,8 +8,8 @@ $(document).ready(function () {
     }
 });
 
-const url = "https://backend-pet-adoption.herokuapp.com/api/";
-// const url = "http://localhost:8080/api/";
+// const url = "https://backend-pet-adoption.herokuapp.com/api/";
+const url = "http://localhost:8080/api/";
 const fetchEquipments = async () => {
     const request = await fetch(`${url}equipments`,{
         headers: {
@@ -131,7 +131,7 @@ function createModalEdit(equipment) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin mạnh thường quân</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin trang thiết bị, thức ăn</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
