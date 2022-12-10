@@ -2,7 +2,7 @@
 // const url = "https://backend-pet-adoption.herokuapp.com/api/";
 const url = "http://localhost:8080/api/";
 const fetchCaringStaff = async () => {
-    const request = await fetch(`${url}admin/caringStaff`,{
+    const request = await fetch(`${url}admin/caringStaff?trash=false`,{
         headers: {
             'Authorization': localStorage.getItem("token")
         }

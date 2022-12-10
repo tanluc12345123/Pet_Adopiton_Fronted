@@ -31,6 +31,12 @@ const addPet = async () => {
   const color = document.getElementById('inputColor').value
   const age = document.getElementById('inputAge').value
   const weight = document.getElementById('inputWeight').value
+
+  const breed = document.getElementById('inputBreed').value
+
+  const price = document.getElementById('inputPrice').value
+
+  const dateReceived = new Date($('#inputDateReceived').val())
   const description = document.getElementById('inputDescription').value
 
   var genderPet = false;
@@ -42,10 +48,13 @@ const addPet = async () => {
   const pet = {
     name: name.trim(),
     gender: genderPet,
+    breed: breed.trim(),
     color: color.trim(),
     age: age.trim(),
     weight: weight.trim(),
+    price: price.trim(),
     description: description.trim(),
+    dateReceived: dateReceived,
   };
   const request = await fetch(`${url}pets/types/${type}`, {
     method: 'POST',
@@ -66,7 +75,7 @@ const addPet = async () => {
 
 async function newfunction() {
 
-  const request = await fetch(`${url}nologin/pets`)
+  const request = await fetch(`${url}nologin/pets?trash=false`)
   let response = await request.json()
   const arrayPet = response["data"];
 
@@ -184,6 +193,10 @@ function createModalEdit(pet, arrs) {
                     id="inputColorUpdate-${pet.id}" value = "${pet.color}">
             </div>
             <div class="form-group">
+                <label class="control-label" for="task_name">Giống loài:</label>
+                <input type="text" class="form-control form-control-user" id="inputBreedUpdate-${pet.id}" value="${pet.breed}">
+            </div>
+            <div class="form-group">
             <label class="control-label" for="task_name">Cân nặng</label>
             <div class="row">
             <div class="col-sm-3">
@@ -199,6 +212,14 @@ function createModalEdit(pet, arrs) {
             <label class="control-label" for="task_name">Tuổi</label>
                 <input type="number" class="form-control form-control-user"
                     id="inputAgeUpdate-${pet.id}" value = "${pet.age}">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="task_name">Giá:</label>
+                <input type="number" class="form-control form-control-user" id="inputPriceUpdate-${pet.id}" value="${pet.price}">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="task_name">Ngày nhận về:</label>
+                <input type="date" class="form-control form-control-user" id="inputDateReceivedUpdate-${pet.id}" value="${pet.dateReceived}">
             </div>
             <div class="form-group">
             <label class="control-label" for="task_name">Mô tả</label>
@@ -277,6 +298,12 @@ const updatePet = async (petId, statusId) => {
   const rabiesVaccination = document.getElementById(`rabiesVaccination-${petId}`).checked;
   const vaccination = document.getElementById(`vaccination-${petId}`).checked;
 
+  const breed = document.getElementById(`inputBreede-${petId}`).value
+
+  const price = document.getElementById(`inputPricee-${petId}`).value
+
+  const dateReceived = new Date($(`#inputDateReceivede-${petId}`).val())
+
   var genderPet = false;
   if (gender == 1) {
     genderPet = true;
@@ -290,10 +317,13 @@ const updatePet = async (petId, statusId) => {
   const pet = {
     name: name.trim(),
     gender: genderPet,
+    breed: breed.trim(),
     color: color.trim(),
     age: age.trim(),
     weight: weight.trim(),
+    price: price.trim(),
     description: description.trim(),
+    dateReceived: dateReceived,
     status: status
   };
   console.log(pet)
