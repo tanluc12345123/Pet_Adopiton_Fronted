@@ -215,11 +215,11 @@ const updateEquipment = async(equipmentId) => {
 }
 
 const deleteEquipment = async (equipmentId) => {
-    const request = await fetch(`${url}equipments/${equipmentId}`, {
+    const request = await fetch(`${url}equipments/${equipmentId}/trash`, {
         headers: {
             'Authorization': localStorage.getItem("token")
         },
-        method: 'DELETE'
+        method: 'PUT'
     })
     let response = await request.json()
     if (response['status'] == "ok") {

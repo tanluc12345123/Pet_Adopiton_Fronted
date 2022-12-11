@@ -360,15 +360,15 @@ const uploadImagePet = async (petId, file) => {
 }
 
 const deletePet = async (petId) => {
-  const request = await fetch(`${url}pets/${petId}`, {
+  const request = await fetch(`${url}pets/${petId}/trash`, {
     headers: {
       'Authorization': localStorage.getItem("token")
     },
-    method: 'DELETE'
+    method: 'PUT'
   })
   let response = await request.json()
   if (response['status'] == "ok") {
-    alert("Xoá thành công")
+    alert("Xoá vào thùng rác thành công")
     window.location.reload()
   }
 }

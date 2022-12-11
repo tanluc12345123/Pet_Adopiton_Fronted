@@ -102,11 +102,11 @@ function createDeleteModal(staff) {
 }
 
 const deleteStaff = async (staffId) => {
-    const request = await fetch(`${url}admin/caringStaff/${staffId}`, {
+    const request = await fetch(`${url}admin/caringStaff/${staffId}/trash`, {
         headers: {
             'Authorization': localStorage.getItem("token")
         },
-        method: 'DELETE'
+        method: 'PUT'
     })
     let response = await request.json()
     if (response['status'] == "ok") {
