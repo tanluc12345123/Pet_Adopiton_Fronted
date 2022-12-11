@@ -160,11 +160,11 @@ const updateDonor = async (donorId) => {
 }
 
 const deleteDonor = async (donorId) => {
-    const request = await fetch(`${url}donates/${donorId}`, {
+    const request = await fetch(`${url}donates/${donorId}/trash`, {
         headers: {
             'Authorization': localStorage.getItem("token")
         },
-        method: 'DELETE'
+        method: 'PUT'
     })
     let response = await request.json()
     if (response['status'] == "ok") {
