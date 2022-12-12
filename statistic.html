@@ -108,7 +108,7 @@
                     <span>Trang thiết bị, thức ăn</span></a>
             </li>
 
-             
+
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
@@ -154,7 +154,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="name">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="name">Douglas McGee</span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -180,12 +180,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Thống kê</h1>
-                        <input type="month"class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="inputMonth">
                     </div>
-                    
+
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
@@ -196,7 +194,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Số thú cưng được nhận nuôi</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petAdopted">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                id="petAdoptedStatistic">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-paw fa-2x text-gray-300"></i>
@@ -213,8 +212,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Số thú cưng chưa nhận nuôi</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petNoAdopted">$215,000</div>
+                                                Số thú cưng được nhận về</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petsStatistic">
+                                                0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-paw fa-2x text-gray-300"></i>
@@ -230,11 +230,13 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng tiền ủng hộ
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng
+                                                tiền ủng hộ
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="totalDonation">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                        id="totalDonationStatistic">0đ</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,7 +256,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Tổng tiền mua</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalExpenditure">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                id="totalExpenditureStatistic">0đ</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -264,7 +267,290 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Thống kê theo tháng</h1>
+                        <input type="month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            id="inputMonth">
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Số thú cưng được nhận nuôi trong tháng</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petAdopted">0
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Số thú cưng được nhận về trong tháng</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petNoAdopted">
+                                                0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng
+                                                tiền ủng hộ trong tháng
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                        id="totalDonation">0đ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Tổng tiền mua trong tháng</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalExpenditure">0đ
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Thống kê theo quý</h1>
+                        
+                        <div class="row float-right">
+                            <input type="button" class="btn btn-sm btn-primary" id="btnStatistic" value="Thống kê" style="margin-right: 10px;">
+                            <select id="quarterSelect" style="margin-right: 10px;">
+                                <option value="1" selected>Quý 1</option>
+                                <option value="2">Quý 2</option>
+                                <option value="3">Quý 3</option>
+                                <option value="4">Quý 4</option>
+                            </select>
+                            <select id="yearSelect" style="margin-right: 10px;">
+                            </select>
+                        </div>                       
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Số thú cưng được nhận nuôi trong quý</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petAdoptedQuarter">0
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Số thú cưng được nhận về trong quý</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petNoAdoptedQuarter">
+                                                0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng
+                                                tiền ủng hộ trong quý
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                        id="totalDonationQuarter">0đ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Tổng tiền mua trong quý</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalExpenditureQuarter">0đ
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Thống kê theo năm</h1>
+
+                        <div class="row float-right">
+                            <select id="yearSelectYear" style="margin-right: 10px;">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Số thú cưng được nhận nuôi trong năm</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petAdoptedYear">0
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Số thú cưng được nhận về trong năm</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="petNoAdoptedYear">
+                                                0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-paw fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng
+                                                tiền ủng hộ trong năm
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                        id="totalDonationYear">0đ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Tổng tiền mua trong năm</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalExpenditureYear">0đ
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -306,7 +592,7 @@
                 <div class="modal-body">Bạn có muốn đăng xuất?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
-                    <input type="button" value="Đăng xuất" class="btn btn-primary" onclick="logout()"/>
+                    <input type="button" value="Đăng xuất" class="btn btn-primary" onclick="logout()" />
                 </div>
             </div>
         </div>
