@@ -68,14 +68,14 @@ function formatMonth(currentMonth) {
 const fetchStatistic = async () => {
     const request = await fetch(`${url}nologin/statistic`)
     let response = await request.json()
+    console.log(response['data'])
     if (response['status'] == "ok") {
         const statistic = response['data']
         document.getElementById('petAdoptedStatistic').innerHTML = statistic.numberPetAdopt
-        document.getElementById('petNoAdoptedStatistic').innerHTML = statistic.numberPetNoAdopt
+        document.getElementById('petsStatistic').innerHTML = statistic.numberPetNoAdopt
         document.getElementById('totalDonationStatistic').innerHTML = formatToVND(statistic.totalDonation)
         document.getElementById('totalExpenditureStatistic').innerHTML = formatToVND(statistic.totalExpenditure)
     }
-    console.log(response['data'])
 }
 
 const fetchStatisticByMonth = async (month) => {
