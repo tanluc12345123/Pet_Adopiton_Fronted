@@ -106,19 +106,19 @@ function createModalEdit(donor) {
                     <form class="user" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <label class="control-label" for="task_name">Tên mạnh thường quân:</label>
-                            <input type="text" class="form-control form-control-user" id="inputNameUpdate" value="${donor.fullName}">
+                            <input type="text" class="form-control form-control-user" id="inputNameUpdate-${donor.id}" value="${donor.fullName}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Số tiền ủng hộ:</label>
-                            <input type="number" class="form-control form-control-user" id="inputAmountUpdate" value = "${donor.donationAmount}">
+                            <input type="number" class="form-control form-control-user" id="inputAmountUpdate-${donor.id}" value = "${donor.donationAmount}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Nội dung:</label>
-                            <textarea class="form-control" id="inputContentUpdate">${donor.content}</textarea>
+                            <textarea class="form-control" id="inputContentUpdate-${donor.id}">${donor.content}</textarea>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Ngày ủng hộ:</label>
-                            <input type="date" class="form-control form-control-user" id="inputDateUpdate" value="${donor.dateDonate}">
+                            <input type="date" class="form-control form-control-user" id="inputDateUpdate-${donor.id}" value="${donor.dateDonate}">
                         </div>
                     </form>
                 </div>
@@ -130,11 +130,11 @@ function createModalEdit(donor) {
 }
 
 const updateDonor = async (donorId) => {
-    const name = document.getElementById('inputNameUpdate').value;
-    const amount = document.getElementById('inputAmountUpdate').value;
-    const content = document.getElementById('inputContentUpdate').value;
+    const name = document.getElementById(`inputNameUpdate-${donorId}`).value;
+    const amount = document.getElementById(`inputAmountUpdate-${donorId}`).value;
+    const content = document.getElementById(`inputContentUpdate-${donorId}`).value;
 
-    const dateDonate = new Date($('#inputDateUpdate').val());
+    const dateDonate = new Date($(`#inputDateUpdate-${donorId}`).val());
     const form = {
         fullName: name.trim(),
         donationAmount: amount.trim(),

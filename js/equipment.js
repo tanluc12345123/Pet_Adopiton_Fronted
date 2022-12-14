@@ -142,7 +142,7 @@ function createModalEdit(equipment) {
                             <div class="text-center">
                                 <img class="img-fluid" style="width: 10rem;" src="${equipment.image}" alt="..."
                                     id="imgAvatarUpdate">
-                                <input type="file" accept="image/*" name="avatarUpdate" id="avatarUpdate" style="display: none;"
+                                <input type="file" accept="image/*" name="avatarUpdate-${equipment.id}" id="avatarUpdate" style="display: none;"
                                     onchange="readURLUpdate(this)">
                                 <label for="avatarUpdate"><img class="img-fluid" style="width: 4rem;" src="img/upload.svg"
                                         alt="..."></label>
@@ -150,23 +150,23 @@ function createModalEdit(equipment) {
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Tên thiết bị, thức ăn:</label>
-                            <input type="text" class="form-control form-control-user" id="inputNameUpdate" value="${equipment.name}">
+                            <input type="text" class="form-control form-control-user" id="inputNameUpdate-${equipment.id}" value="${equipment.name}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Số lượng:</label>
-                            <input type="number" class="form-control form-control-user" id="inputQuantityUpdate" value="${equipment.quantity}">
+                            <input type="number" class="form-control form-control-user" id="inputQuantityUpdate-${equipment.id}" value="${equipment.quantity}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Tổng tiền mua:</label>
-                            <input type="number" class="form-control form-control-user" id="inputPurchasePriceUpdate" value="${equipment.purchasePrice}">
+                            <input type="number" class="form-control form-control-user" id="inputPurchasePriceUpdate-${equipment.id}" value="${equipment.purchasePrice}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Ngày mua:</label>
-                            <input type="date" class="form-control form-control-user" id="inputDatePurchaseUpdate" value="${equipment.datePurchase}">
+                            <input type="date" class="form-control form-control-user" id="inputDatePurchaseUpdate-${equipment.id}" value="${equipment.datePurchase}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="task_name">Trạng thái:</label>
-                            <input type="text" class="form-control form-control-user" id="inputStatusUpdate" value="${equipment.status}">
+                            <input type="text" class="form-control form-control-user" id="inputStatusUpdate-${equipment.id}" value="${equipment.status}">
                         </div>
                     </form>
                 </div>
@@ -178,17 +178,17 @@ function createModalEdit(equipment) {
 } 
 
 const updateEquipment = async(equipmentId) => {
-    const name = document.getElementById('inputNameUpdate').value;
+    const name = document.getElementById(`inputNameUpdate-${equipmentId}`).value;
 
-    const quantity = document.getElementById('inputQuantityUpdate').value;
-    const purchasePrice = document.getElementById('inputPurchasePriceUpdate').value;
-    const status = document.getElementById('inputStatusUpdate').value;
+    const quantity = document.getElementById(`inputQuantityUpdate-${equipmentId}`).value;
+    const purchasePrice = document.getElementById(`inputPurchasePriceUpdate-${equipmentId}`).value;
+    const status = document.getElementById(`inputStatusUpdate`).value;
 
-    var date = new Date($('#inputDatePurchaseUpdate').val());
+    var date = new Date($(`#inputDatePurchaseUpdate-${equipmentId}`).val());
     const datePurchase = `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}`;
     console.log(datePurchase)
 
-    const image = document.getElementById('avatarUpdate');
+    const image = document.getElementById(`avatarUpdate-${equipmentId}`);
 
     const formData = new FormData();
     formData.append('name', name)

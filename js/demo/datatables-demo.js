@@ -298,11 +298,11 @@ const updatePet = async (petId, statusId) => {
   const rabiesVaccination = document.getElementById(`rabiesVaccination-${petId}`).checked;
   const vaccination = document.getElementById(`vaccination-${petId}`).checked;
 
-  const breed = document.getElementById(`inputBreede-${petId}`).value
+  const breed = document.getElementById(`inputBreedUpdate-${petId}`).value
 
-  const price = document.getElementById(`inputPricee-${petId}`).value
+  const price = document.getElementById(`inputPriceUpdate-${petId}`).value
 
-  const dateReceived = new Date($(`#inputDateReceivede-${petId}`).val())
+  const dateReceived = new Date($(`#inputDateReceivedUpdate-${petId}`).val())
 
   var genderPet = false;
   if (gender == 1) {
